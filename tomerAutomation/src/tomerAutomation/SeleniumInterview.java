@@ -71,7 +71,17 @@ public class SeleniumInterview {
 			String locator="#rso > div:nth-child(1) > div > div > div > div > div.r > a";
 			assertEquals("It's not git hub","https://github.com/SeleniumHQ/selenium", driver.findElement(By.cssSelector(locator)).getAttribute("href"));
 			driver.findElement(By.cssSelector(locator)).click();
-			
+			locator="#js-repo-pjax-container > div.pagehead.repohead.readability-menu.bg-gray-light.pb-0.pt-3.pb-0 > div > div > h1";
+			assertEquals("Repository is not seleniumHQ","SeleniumHQ\r\n" + 
+					"/\r\n" + 
+					"selenium", driver.findElement(By.cssSelector(locator)).getText());
+			WebDriverWait wait=new WebDriverWait(driver,15);
+			wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#js-repo-pjax-container > div.container-lg.clearfix.new-discussion-timeline.px-3 > div > div.file-navigation.in-mid-page.d-flex.flex-items-start > details.get-repo-select-menu.js-get-repo-select-menu.position-relative.details-overlay.details-reset > summary"))).click();
+			System.out.println(driver.findElement(By.cssSelector("#js-repo-pjax-container > div.container-lg.clearfix.new-discussion-timeline.px-3 > div > div.file-navigation.in-mid-page.d-flex.flex-items-start > details.get-repo-select-menu.js-get-repo-select-menu.position-relative.details-overlay.details-reset > div > div > div.get-repo-modal-options > div.clone-options.https-clone-options > div > input")).getAttribute("value"));
+			wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#js-repo-pjax-container > div.pagehead.repohead.readability-menu.bg-gray-light.pb-0.pt-3.pb-0 > nav > span:nth-child(2) > a"))).click();
+			driver.findElement(By.id("js-issues-search")).sendKeys("Zooming browsers using short cut keys such as \"CMD+\" does not work");
+			driver.findElement(By.id("js-issues-search")).sendKeys(Keys.ENTER);
+			System.out.println(driver.findElement(By.cssSelector("#issue_7793 > div > div.flex-auto.min-width-0.lh-condensed.p-2.pr-3.pr-md-2 > div > span.opened-by > relative-time")).getText());
 	    }
 	    catch (Exception e) {
 			System.out.println(e.getMessage());
